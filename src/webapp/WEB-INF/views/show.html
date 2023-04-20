@@ -5,13 +5,18 @@
     <title>Show user</title>
 </head>
 <body>
-<p th:text="${user.getName()}">VALUE</p>
+<p th:text="${user.getId()}">VALUE</p>
+<p th:text="${user.getFirstName()}">VALUE</p>
+<p th:text="${user.lastName}">VALUE</p>
+<p th:text="${user.username}">VALUE</p>
 <p th:text="${user.getAge()}">VALUE</p>
 <p th:text="${user.getEmail()}">VALUE</p>
-<p th:text="${user.getId()}">VALUE</p>
+<p th:text="${user.password}">VALUE</p>
 
-<a th:href="@{users/{id}/edit(id=${user.getId()})}">Edit</a>
-<form th:method="DELETE" th:action="@{users/{id}/edit(id=${user.getId()})}">
+<form th:method="GET" th:action="@{users/{id}/edit(id=${user.getId()})}">
+    <input type="submit" value="Edit">
+</form>
+<form th:method="DELETE" th:action="@{users/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete">
 </form>
 </body>

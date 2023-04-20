@@ -9,45 +9,49 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private static int USERS_COUNT;
+//    private static long USERS_COUNT;
     private List<User> users;
 
-    {
-        users = new ArrayList<>();
-        users.add(new User("Lada Priora", 2020, "silver metallic"));
-        users.add(new User("Lada Vesta", 2019, "yellow"));
-        users.add(new User("BMW X6", 2022, "black"));
-        users.add(new User("Opel Astra", 2018, "grey"));
-        users.add(new User("Toyota Camry", 2021, "white"));
-    }
+//    {
+//        users = new ArrayList<>();
+//        users.add(new User(++USERS_COUNT,"Olga", "Askerova", "Бульбуль", (byte) 36, "ole4kaask@mail.ru", "12345345"));
+//        users.add(new User(++USERS_COUNT,"Petr", "Ivanov", "Petruxa", (byte) 25, "petruxaJiEst@yandex.ru", "124578"));
+//        users.add(new User(++USERS_COUNT,"Irina", "Semenova", "IriwkaMartiwka", (byte) 21, "irina_kartina.ru", "0982"));
+//        users.add(new User(++USERS_COUNT,"Svetlana", "Ponomareva", "SvetkaPipetlka", (byte) 45, "zvezdaBaleta@yandex.ru", "3740"));
+//        users.add(new User(++USERS_COUNT,"Evgeniy", "Dyatlov", "Maestro", (byte) 35, "master_evg@gmail.com", "2394"));
+//    }
 
     @Override
     public List<User> showAllUsers() {
-       return users;
+        return users;
     }
 
     @Override
-    public User show(int id) {
+    public User show(long id) {
         return users.stream().filter(user -> user.getId() == id).findAny().orElse(null);
     }
 
     @Override
     public void save(User user) {
-        user.setId(++USERS_COUNT);
+//        user.setId(++USERS_COUNT);
         users.add(user);
     }
 
     @Override
-    public void update(int id, User updatedUser) {
+    public void update(long id, User updatedUser) {
         User userToBeUpdated = show(id);
 
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setFirstName(updatedUser.getFirstName());
+        userToBeUpdated.setLastName(updatedUser.getLastName());
+        userToBeUpdated.setUsername(updatedUser.getUsername());
         userToBeUpdated.setAge(updatedUser.getAge());
+        userToBeUpdated.setEmail(updatedUser.getEmail());
+        userToBeUpdated.setPassword(updatedUser.getPassword());
+
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(long id) {
         users.removeIf(user -> user.getId() == id);
     }
 }

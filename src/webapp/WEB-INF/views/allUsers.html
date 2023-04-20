@@ -8,17 +8,35 @@
 <div>
     <table th:border="1">
         <tr>
-            <th>Name</th>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Username</th>
             <th>Age</th>
             <th>Email</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
         </tr>
         <tr th:each="user : ${users}">
-            <td th:utext="${user.name}"/>
+            <td th:utext="${user.id}"/>
+            <td th:utext="${user.firstName}"/>
+            <td th:utext="${user.lastName}"/>
+            <td th:utext="${user.username}"/>
             <td th:utext="${user.age}"/>
             <td th:utext="${user.email}"/>
-            <form th:method="DELETE" th:action="@{users/{id}/edit(id=${user.getId()})}">
-                <input type="submit" value="Delete">
-            </form>
+            <td>
+                <form th:method="GET" th:action="@{users/{id}/edit(id=${user.getId()})}">
+                    <input type="submit" value="Edit">
+                </form>
+            </td>
+            <td>
+                <form th:method="DELETE" th:action="@{users/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+
+
         </tr>
     </table>
 
@@ -27,7 +45,8 @@
 <br/>
 <hr/>
 
-<a href="users/new">Create new user</a>
-
+<form th:method="GET" th:action="@{users/new}">
+    <input type="submit" value="Create new user">
+</form>
 </body>
 </html>
