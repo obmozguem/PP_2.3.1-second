@@ -51,15 +51,6 @@ public class User {
         this.password = password;
     }
 
-//    public User(String firstName, String lastName, String username, byte age, String email, String password) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.username = username;
-//        this.age = age;
-//        this.email = email;
-//        this.password = password;
-//    }
-
     public User() {
     }
 
