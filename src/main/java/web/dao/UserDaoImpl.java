@@ -2,44 +2,43 @@ package web.dao;
 
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import web.models.User;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-//    private static long USERS_COUNT;
-    private List<User> users;
-
-//    {
-//        users = new ArrayList<>();
-//        users.add(new User(++USERS_COUNT,"Olga", "Askerova", "Бульбуль", (byte) 36, "ole4kaask@mail.ru", "12345345"));
-//        users.add(new User(++USERS_COUNT,"Petr", "Ivanov", "Petruxa", (byte) 25, "petruxaJiEst@yandex.ru", "124578"));
-//        users.add(new User(++USERS_COUNT,"Irina", "Semenova", "IriwkaMartiwka", (byte) 21, "irina_kartina.ru", "0982"));
-//        users.add(new User(++USERS_COUNT,"Svetlana", "Ponomareva", "SvetkaPipetlka", (byte) 45, "zvezdaBaleta@yandex.ru", "3740"));
-//        users.add(new User(++USERS_COUNT,"Evgeniy", "Dyatlov", "Maestro", (byte) 35, "master_evg@gmail.com", "2394"));
-//    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<User> showAllUsers() {
-        return users;
+        Query query = entityManager.createQuery("SELECT e FROM User e");
+        return query.getResultList();
     }
 
     @Override
-    public User show(long id) {
-        return users.stream().filter(user -> user.getId() == id).findAny().orElse(null);
+    public User getUserById(long id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
+    @Transactional
     public void save(User user) {
-//        user.setId(++USERS_COUNT);
-        users.add(user);
+//        executeInsideTransaction(entityManager -> entityManager.persist(user));
+        entityManager.persist(user);
     }
 
     @Override
+    @Transactional
     public void update(long id, User updatedUser) {
-        User userToBeUpdated = show(id);
+        User userToBeUpdated = getUserById(id);
 
         userToBeUpdated.setFirstName(updatedUser.getFirstName());
         userToBeUpdated.setLastName(updatedUser.getLastName());
@@ -47,11 +46,26 @@ public class UserDaoImpl implements UserDao {
         userToBeUpdated.setAge(updatedUser.getAge());
         userToBeUpdated.setEmail(updatedUser.getEmail());
         userToBeUpdated.setPassword(updatedUser.getPassword());
-
+        entityManager.merge(userToBeUpdated);
+//        executeInsideTransaction(entityManager -> entityManager.merge(userToBeUpdated));
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
-        users.removeIf(user -> user.getId() == id);
+        entityManager.remove(getUserById(id));
+//        executeInsideTransaction(entityManager -> entityManager.remove(entityManager.find(User.class, id)));
     }
+//    private void executeInsideTransaction(Consumer<EntityManager> action) {
+//        EntityTransaction tx = entityManager.getTransaction();
+//        try {
+//            tx.begin();
+//            action.accept(entityManager);
+//            tx.commit();
+//        }
+//        catch (RuntimeException e) {
+//            tx.rollback();
+//            throw e;
+//        }
+//    }
 }

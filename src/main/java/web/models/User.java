@@ -1,6 +1,4 @@
 package web.models;
-
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -41,20 +39,10 @@ public class User {
 
     @Column(name = "password")
     @NotEmpty(message = "Password should not be empty")
-    @Size(min = 1, max = 70, message = "Username should be between 1 or 70 characters")
+    @Size(min = 4, max = 70, message = "Password should be between 4 or 70 characters")
     private String password;
-// ПОТОМ УДАЛИТЬ ЭТОТ КОНСТРУКТОР, ТАК КАК ТУТ ИД
-//    public User(Long id, String firstName, String lastName, String username, byte age, String email, String password) {
-//        this.id = id;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.username = username;
-//        this.age = age;
-//        this.email = email;
-//        this.password = password;
-//    }
-
-    public User(String firstName, String lastName, String username, byte age, String email, String password) {
+    public User(Long id, String firstName, String lastName, String username, byte age, String email, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -63,15 +51,20 @@ public class User {
         this.password = password;
     }
 
+//    public User(String firstName, String lastName, String username, byte age, String email, String password) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.username = username;
+//        this.age = age;
+//        this.email = email;
+//        this.password = password;
+//    }
+
     public User() {
     }
 
     public Long getId() {
         return id;
-    }
-//УДАЛИТЬ ПОТОМ! ТК АВТОМАТИЧЕСКИ ГФЕНФЕРИРУЕТСЯ
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
