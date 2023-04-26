@@ -19,19 +19,15 @@
 
         </tr>
         <tr th:each="user : ${users}">
-            <td th:text="${user.id}"/>
-            <td th:text="${user.firstName}"/>
-            <td th:text="${user.lastName}"/>
-            <td th:text="${user.username}"/>
-            <td th:text="${user.age}"/>
-            <td th:text="${user.email}"/>
+            <td th:text="${user.getId()}"/>
+            <td th:text="${user.getFirstName()}"/>
+            <td th:text="${user.getLastName()}"/>
+            <td th:text="${user.getUsername()}"/>
+            <td th:text="${user.getAge()}"/>
+            <td th:text="${user.getEmail()}"/>
+            <td><a th:href="@{/users/edit(id=${user.getId()})}">Edit</a></td>
             <td>
-                <form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
-                    <input type="submit" value="Edit">
-                </form>
-            </td>
-            <td>
-                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                <form th:method="POST" th:action="@{/users/delete(id=${user.getId()})}">
                     <input type="submit" value="Delete">
                 </form>
             </td>

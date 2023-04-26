@@ -28,7 +28,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
+    public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "show";
     }
@@ -47,24 +47,42 @@ public class UsersController {
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
+//    @GetMapping("/{id}/edit")
+//    public String edit(Model model, @PathVariable("id") long id) {
+//        model.addAttribute("user", userService.getUserById(id));
+//        return "edit";
+//    }
+//
+//    @PatchMapping("/{id}")
+//    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") long id) {
+//        if (bindingResult.hasErrors()) {
+//            return "edit";
+//        }
+//        userService.update(id, user);
+//        return "redirect:/users";
+//    }
+        @GetMapping("/edit")
+    public String edit(@RequestParam(value = "id", required = false) Long id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
         return "edit";
     }
-
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") long id) {
-        if (bindingResult.hasErrors()) {
-            return "edit";
-        }
-        userService.update(id, user);
+    @PostMapping(value = "/edit")
+    public String update(@ModelAttribute("user") /*@Valid*/ User user/*, BindingResult bindingResult*/) {
+//        if (bindingResult.hasErrors()) {
+//            return "edit";
+//        }
+        userService.update(user);
         return "redirect:/users";
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") long id) {
-        userService.delete(id);
-        return "redirect:/users";
-    }
+//    @DeleteMapping("/{id}")
+//    public String delete(@PathVariable("id") Long id) {
+//        userService.delete(id);
+//        return "redirect:/users";
+//    }
+@PostMapping(value = "/delete")
+public String deleteUser(@RequestParam(value = "id", required = false) Long id) {
+    userService.delete(id);
+    return "redirect:/users";
+}
 }
