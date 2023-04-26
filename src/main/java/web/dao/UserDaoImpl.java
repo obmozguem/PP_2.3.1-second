@@ -28,20 +28,6 @@ public class UserDaoImpl implements UserDao {
         entityManager.persist(user);
     }
 
-//    @Override
-//    public void update(long id, User updatedUser) {
-//        User userToBeUpdated = getUserById(id);
-//
-//        userToBeUpdated.setFirstName(updatedUser.getFirstName());
-//        userToBeUpdated.setLastName(updatedUser.getLastName());
-//        userToBeUpdated.setUsername(updatedUser.getUsername());
-//        userToBeUpdated.setAge(updatedUser.getAge());
-//        userToBeUpdated.setEmail(updatedUser.getEmail());
-//        userToBeUpdated.setPassword(updatedUser.getPassword());
-//        entityManager.merge(userToBeUpdated);
-//    }
-
-
     @Override
     public void update(User user) {
         if (getUserById(user.getId()) != null) {

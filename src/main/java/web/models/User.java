@@ -15,34 +15,33 @@ public class User {
     private Long id;
 
     @Column(name = "first_name")
-//    @NotEmpty(message = "Name should not be empty")
-//    @Size(min = 1, max = 50, message = "Name should be between 1 or 50 characters")
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 1, max = 50, message = "Name should be between 1 or 50 characters")
     private String firstName;
 
     @Column(name = "last_name")
-//    @NotEmpty(message = "Surname should not be empty")
-//    @Size(min = 1, max = 50, message = "Surname should be between 1 or 50 characters")
+    @NotEmpty(message = "Surname should not be empty")
+    @Size(min = 1, max = 50, message = "Surname should be between 1 or 50 characters")
     private String lastName;
 
     @Column(name = "username")
-//    @NotEmpty(message = "Username should not be empty")
+    @NotEmpty(message = "Username should not be empty")
     private String username;
 
     @Column(name = "age")
-//    @Min(value = 0, message = "Age should be greater than 0")
+    @Min(value = 0, message = "Age should be greater than 0")
     private byte age;
 
     @Column(name = "email")
-//    @NotEmpty(message = "Email should not be empty")
-//    @Email(message = "Email should be valid")
+    @NotEmpty(message = "Email should not be empty")
+    @Email(message = "Email should be valid")
     private String email;
 
     @Column(name = "password")
-//    @NotEmpty(message = "Password should not be empty")
-//    @Size(min = 4, max = 70, message = "Password should be between 4 or 70 characters")
+    @NotEmpty(message = "Password should not be empty")
+    @Size(min = 4, max = 70, message = "Password should be between 4 or 70 characters")
     private String password;
-    public User(/*Long id, */String firstName, String lastName, String username, byte age, String email, String password) {
-//        this.id = id;
+    public User(String firstName, String lastName, String username, byte age, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
